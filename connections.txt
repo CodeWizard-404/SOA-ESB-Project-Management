@@ -1,0 +1,74 @@
+ws1:
+GET http://localhost:8088/projects
+GET http://localhost:8088/projects/id
+
+ws2:
+http://localhost:56446/Service.svc?singleWsdl
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tem="http://tempuri.org/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <tem:AssignMemberToTeam>
+         <tem:memberId>id</tem:memberId>
+         <tem:teamId>id</tem:teamId>
+      </tem:AssignMemberToTeam>
+   </soapenv:Body>
+</soapenv:Envelope>
+
+ws3:
+node app.js
+
+GET http://localhost:3033/teams
+GET http://localhost:3033/teams/id
+
+POST http://localhost:3033/assignTeam
+{
+    "teamId": id,
+    "projectId": id
+}
+
+PUT http://localhost:3033/assignTeam
+{
+    "teamId": id,
+    "projectId": id
+}
+
+DELETE http://localhost:3033/assignTeam
+{
+    "teamId": 1,
+    "projectId": 1
+}
+
+
+ws4:
+php -S localhost:8080
+
+GET http://localhost:8080/calendar
+GET http://localhost:8080/calendar/id
+
+POST http://localhost:8080/calendar
+{    "name": "Project Kickoff",
+    "description": "Initial meeting to discuss project scope and timeline",
+    "start_date": "2024-12-01T10:00:00",
+    "end_date": "2024-12-01T12:00:00",
+    "project_id": 1}
+
+PUT http://localhost:8080/calendar/id
+{    "name": "Updated Project Kickoff",
+    "description": "Updated description",
+    "start_date": "2024-12-01T10:30:00",
+    "end_date": "2024-12-01T12:30:00"}
+
+DELETE http://localhost:8080/calendar/id
+
+
+ws5:
+POST http://localhost:5050/api/feedback/add
+{
+  "description": "Great progress on the project.",
+  "member_id": id,
+  "project_id": id
+}
+
+ GET http://localhost:5050/api/feedback/id
+
+
